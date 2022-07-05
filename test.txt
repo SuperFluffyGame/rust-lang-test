@@ -1,0 +1,7 @@
+let a = 10 * 2;
+
+let b = "\\i";
+
+// comment :)
+
+let c = a + b;
