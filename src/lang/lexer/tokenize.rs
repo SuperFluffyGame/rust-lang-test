@@ -90,27 +90,32 @@ pub fn tokenize(s: String) -> Result<Vec<Token>, String> {
                 Token::String(s)
             }
 
-            '/' => {
-                if let Some(c) = chars.peek() {
-                    if c == &'/' {
-                        chars.next();
-                        let mut s = String::new();
+            '#' => {
+                if let Some('#') = chars.peek() {
+                    chars.next();
+                    let mut s = String::new();
 
-                        while let Some(c) = chars.peek() {
-                            if c == &'\r' {
-                                chars.next();
-                                continue;
-                            }
-                            let c = match c {
-                                '\n' => break,
-                                _ => chars.next(),
-                            };
-                            s.push(c.unwrap());
+                    while let Some(c) = chars.peek() {
+                        if c == &'\r' {
+                            chars.next();
+                            continue;
                         }
-                        Token::Comment(s)
-                    } else {
-                        Token::Div
+                        let c = match c {
+                            '\n' => break,
+                            _ => chars.next(),
+                        };
+                        s.push(c.unwrap());
                     }
+                    Token::Comment(s)
+                } else {
+                    return Err(errors::unexpected_character(c));
+                }
+            }
+
+            '/' => {
+                if let Some('/') = chars.peek() {
+                    chars.next();
+                    Token::FloorDiv
                 } else {
                     Token::Div
                 }

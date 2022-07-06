@@ -11,6 +11,7 @@ pub enum Token {
     Sub,
     Mul,
     Div,
+    FloorDiv,
     Exp,
 
     Equal,

@@ -8,7 +8,7 @@ pub struct Node {
 impl Node {
     pub fn new(value: Token) -> Node {
         Node {
-            value: value,
+            value,
             children: Vec::new(),
         }
     }
